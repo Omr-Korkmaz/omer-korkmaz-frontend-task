@@ -1,0 +1,25 @@
+.container {
+
+    margin: auto;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; */
+
+}
+
+.filterContainer{
+    background-color: ghostwhite;
+    padding: 20px;
+    border: 1px solid rgb(175, 169, 169);
+}
+
+.buttomContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: blueviolet;
+    margin-top: 30px;
+
+
+}

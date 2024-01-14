@@ -5,6 +5,8 @@ import MovieDetails from '../MovieDetails';
 import Filter from '../Filter';
 import filterUtils from '../../utils/filterUtils';
 
+import styles from './home.module.css'
+
 interface SelectedItem {
   episode_id: number;
 }
@@ -27,12 +29,14 @@ function Home() {
   const filteredData = data ? filterUtils(data, filter) : [];
 
   return (
-    <div>
+    <div className={styles.container}>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
-
+<div className={styles.filterContainer} >
       <Filter onFilterChange={handleFilterChange} />
+      </div>
 
+      <div className={styles.buttomContainer}>
       <div>
         {/* List Component */}
         {filteredData.map((item: any, index: number) => (
@@ -45,6 +49,7 @@ function Home() {
         {selectedItem && (
           <MovieDetails selectedItem={selectedItem} />
         )}
+      </div>
       </div>
     </div>
   );
