@@ -1,4 +1,8 @@
-interface ApiParams {
+interface swapiApiResponse<T> {
+  results: T[];
+}
+
+interface swapiApiParams {
   title: string;
   episode_id: number;
   opening_crawl: string;
@@ -14,4 +18,4 @@ interface ApiParams {
   starships: string[];
 }
 
-export type { ApiParams };
+export type { swapiApiParams, swapiApiResponse };

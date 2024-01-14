@@ -1,4 +1,4 @@
-import useFetch from '../hooks/useFetch';
+import useFetchApi from '../hooks/useFetchApi';
 
 interface ApiResult {
   data: any;
@@ -7,7 +7,7 @@ interface ApiResult {
 }
 
 const Api = async (url: string): Promise<ApiResult> => {
-  const { data, loading, error } = useFetch(url);
+  const { data, loading, error } = useFetchApi(url);
 
   if (loading) {
     console.log('Loading data...');
