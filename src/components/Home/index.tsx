@@ -7,6 +7,7 @@ import Loading from '../Loading'
 import useFetchApi from '../../hooks/useFetchApi';
 import {swapiApiResponse, swapiApiParams} from '../../types/swapiApiParams'
 import { Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import styles from './home.module.css'
 
 interface SelectedItem {
   episode_id: number;
@@ -37,7 +38,7 @@ function Home() {
   const filteredData = result ? filterUtils(result, filter) : [];
 
   return (
-    <div>
+    <section className={styles.container}>
       
       <div>
             <Filter onFilterChange={handleFilterChange} />
@@ -100,7 +101,7 @@ function Home() {
           </div>
         </Grid>
       </Grid>
-    </div>
+    </section>
   );
 }
 

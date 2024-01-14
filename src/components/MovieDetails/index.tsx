@@ -10,9 +10,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
 
 
     console.log(selectedItem)
-    
-    
-    const apiKey = '63fd3c86';
+    const apiKey = process.env.REACT_APP_API_KEY;
     const title = 'The Empire Strikes Back';
     
     const apiUrl = `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(title)}`;
