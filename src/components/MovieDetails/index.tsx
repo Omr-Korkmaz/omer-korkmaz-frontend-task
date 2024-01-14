@@ -5,6 +5,9 @@ interface MovieDetailsProps {
 }
 
 const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
+
+
+    console.log(selectedItem)
   if (!selectedItem) {
     return <div>No movie selected</div>;
   }
@@ -12,7 +15,6 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
   return (
     <div>
       <h2>{selectedItem.title}</h2>
-      {selectedItem.direction && <p>Direction: {selectedItem.direction}</p>}
     </div>
   );
 };
