@@ -1,27 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
 interface FilterProps {
   onFilterChange: (filterValue: string) => void;
 }
 
 const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
-  const [filterValue, setFilterValue] = useState<string>('');
+  const [filterValue, setFilterValue] = useState<string>("");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setFilterValue(value);
     onFilterChange(value);
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Filter by title"
+    <Box>
+      <TextField
+        fullWidth
+        label="Filter"
+        id="filterInput"
         value={filterValue}
         onChange={handleInputChange}
       />
-    </div>
+    </Box>
   );
 };
 

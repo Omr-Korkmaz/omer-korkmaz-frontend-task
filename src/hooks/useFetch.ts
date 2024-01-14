@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
+import { ApiParams } from '../types/apiParams';
 
-interface UseFetchResult<T> {
-  data: T | null;
+interface UseFetchResult {
+  data: ApiParams[] | null;
   loading: boolean;
   error: Error | null;
 }
 
-const useFetch = <T>(url: string): UseFetchResult<T> => {
-  const [data, setData] = useState<T | null>(null);
+const useFetch = (url: string): UseFetchResult => {
+  const [data, setData] = useState<ApiParams[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -20,7 +21,7 @@ const useFetch = <T>(url: string): UseFetchResult<T> => {
         }
 
         const result = await response.json();
-        setData(result);
+        setData(result.results);
       } catch (err: unknown) {
         if (err instanceof Error) {
           setError(err);

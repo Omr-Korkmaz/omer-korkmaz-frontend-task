@@ -14,5 +14,4 @@ interface ApiParams {
   starships: string[];
 }
 
-//reuse in other files
 export type { ApiParams };

@@ -1,11 +1,16 @@
-import React from 'react'
+import React from "react";
 
-const Movie:React.FC = () => {
-  return (
-    <div>
-   
-    </div>
-  )
+interface MovieProps {
+  item: any;
+  onItemClick: (itemId: number) => void;
 }
 
-export default Movie
+const Movie: React.FC<MovieProps> = ({ item, onItemClick }) => {
+  return (
+    <div onClick={() => onItemClick(item.episode_id)}>
+      <h3>{item.title}</h3>
+    </div>
+  );
+};
+
+export default Movie;

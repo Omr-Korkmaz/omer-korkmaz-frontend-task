@@ -1,4 +1,3 @@
-// api.ts
 import useFetch from '../hooks/useFetch';
 
 interface ApiResult {
