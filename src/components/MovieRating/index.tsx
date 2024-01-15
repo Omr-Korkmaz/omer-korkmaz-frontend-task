@@ -1,70 +1,54 @@
-import React from 'react';
-import useFetchApi from '../../hooks/useFetchApi';
-import { OmdbApiParams, OmdbApiRating } from '../../types/omdbParams';
+import React from "react";
+import useFetchApi from "../../hooks/useFetchApi";
+import { OmdbApiParams } from "../../types/omdbParams";
 
-import StarIcon from '@mui/icons-material/Star';
-import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import { swapiApiParams, swapiApiResponse } from "../../types/swapiApiParams";
+import { calculateAverageRating } from "../../utils/ratingUtils";
+import StarIcon from "@mui/icons-material/Star";
+import StarOutlineIcon from "@mui/icons-material/StarOutline";
+
+import convertLatinToRomanUtils from "../../utils/convertLatintoRomanUtils";
+
 interface MovieRatingProps {
-  title: string;
+  selectedItem: swapiApiParams;
 }
 
-const MovieRating: React.FC<MovieRatingProps> = ({ title }) => {
-  const apiKey = '63fd3c86';
-  const apiUrl = `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(title)}`;
-  const { data: omdbData, loading: omdbLoading, error: omdbError } = useFetchApi<OmdbApiParams>(apiUrl);
+const MovieRating: React.FC<MovieRatingProps> = ({ selectedItem }) => {
+  let getFullTitle = `Episode ${convertLatinToRomanUtils(
+    selectedItem?.episode_id
+  )} - ${selectedItem?.title}`;
 
-  console.log("omdbData", omdbData?.Title);
+  const apiKey = "63fd3c86";
+  const apiUrl = `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(
+    getFullTitle
+  )}`;
+  const {
+    data: omdbData,
+    loading: omdbLoading,
+    error: omdbError,
+  } = useFetchApi<OmdbApiParams>(apiUrl);
 
-  const imdbRating = parseFloat(omdbData?.Ratings?.find((rating: OmdbApiRating) => rating.Source === 'Internet Movie Database')?.Value) || 0;
-  const rottenTomatoesRating = parseInt(omdbData?.Ratings?.find((rating: OmdbApiRating) => rating.Source === 'Rotten Tomatoes')?.Value) || 0;
-  const metacriticRating = parseInt(omdbData?.Ratings?.find((rating: OmdbApiRating) => rating.Source === 'Metacritic')?.Value) || 0;
+  console.log("omdbData", omdbData);
 
-  let sum = 0;
-  let divisor = 0;
+  const averageRating = omdbData ? calculateAverageRating(omdbData) : null;
 
-  if (imdbRating) {
-    sum += imdbRating * 10;
-    divisor += 1;
-  }
-
-  if (rottenTomatoesRating) {
-    sum += rottenTomatoesRating;
-    divisor += 1;
-  }
-
-  if (metacriticRating) {
-    sum += metacriticRating;
-    divisor += 1;
-  }
-
-  const averageRating = divisor > 0 ? sum / divisor : 0;
-
-
-  const roundedRating = Math.round(averageRating)/10;
+  const numberOfStart = averageRating ? averageRating / 10 : null;
 
   const stars: JSX.Element[] = [];
 
-  for (let i = 0; i < roundedRating; i++) {
-    stars.push(<StarIcon key={i} style={{ fill: 'orange', fontSize: 24 }} />);
+  for (let i = 0; i < numberOfStart!; i++) {
+    stars.push(<StarIcon key={i} style={{ fill: "orange", fontSize: 20 }} />);
   }
 
-  for (let i = roundedRating; i < 10; i++) {
-    stars.push(<StarOutlineIcon key={i} style={{ color: 'grey', fontSize: 24 }} />);
+  for (let i = numberOfStart!; i < 10; i++) {
+    stars.push(
+      <StarOutlineIcon key={i} style={{ color: "grey", fontSize: 20 }} />
+    );
   }
-  
-
 
   return (
     <div>
-      <p>IMDB Rating: {imdbRating}</p>
-      <p>Rotten Tomatoes Rating: {rottenTomatoesRating}</p>
-      <p>Metacritic Rating: {metacriticRating}</p>
-      <p>Average Rating: {roundedRating}</p>
-
-      <div>
-{stars}
-      </div>
-
+      <div>{stars}</div>
     </div>
   );
 };

@@ -7,15 +7,18 @@ interface swapiApiParams {
   episode_id: number;
   opening_crawl: string;
   director: string;
-  producer: string;
+  producer?: string;
   release_date: string;
-  created: string;
-  edited: string;
-  url: string;
-  characters: string[]; 
-  planets: string[];
-  species: string[];
-  starships: string[];
+  created?: string;
+  edited?: string;
+  url?: string;
+  characters?: string[];
+  planets?: string[];
+  species?: string[];
+  starships?: string[];
+
+  // [key: string]: string | undefined;
+
 }
 
 export type { swapiApiParams, swapiApiResponse };
