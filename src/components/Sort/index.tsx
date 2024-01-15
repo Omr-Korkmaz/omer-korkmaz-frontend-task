@@ -34,8 +34,9 @@ export default function Sort({ onSort }: SortProps) {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+        sx={{width:'140px', height:'55px'}}
       >
-        Sort
+        Sort by...
       </Button>
       <Menu
         id="basic-menu"
