@@ -6,18 +6,18 @@ interface ApiResult {
   error: any;
 }
 
-const Api = async (url: string): Promise<ApiResult> => {
-  const { data, loading, error } = useFetchApi(url);
+const Api = async (url: string) => {
+//   const { data, loading, error } = useFetchApi(url);
 
-  if (loading) {
-    console.log('Loading data...');
-  }
+//   if (loading) {
+//     console.log('Loading data...');
+//   }
 
-  if (error) {
-    console.error('Error fetching data:', error.message);
-  }
+//   if (error) {
+//     console.error('Error fetching data:', error.message);
+//   }
 
-  return { data, loading, error };
+//   return { data, loading, error };
 }
 
 export default Api;

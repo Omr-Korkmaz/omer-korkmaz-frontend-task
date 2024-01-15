@@ -29,11 +29,12 @@ type ApiParamsResponse = swapiApiResponse<swapiApiParams>;
 function Home() {
   const {
     data: swapiData,
-    loading: swapiLoading,
+    isLoading: swapiLoading,
     error: swapiError,
   } = useFetchApi<ApiParamsResponse>(
     "https://swapi.dev/api/films/?format=json"
   );
+
   const swapiResult = swapiData?.results;
 
   console.log("swapiResult", swapiResult);
@@ -110,7 +111,7 @@ function Home() {
             <Loading loading={swapiLoading} />
             {swapiError && (
               <div>
-                <p>Error: {swapiError.message}</p>
+                <p>Error: {swapiError}</p>
               </div>
             )}
           </Grid>

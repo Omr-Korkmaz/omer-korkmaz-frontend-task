@@ -5,7 +5,7 @@ import { swapiApiParams } from "../../types/swapiApiParams";
 import MovieRating from "../MovieRating";
 import convertLatinToRomanUtils from "../../utils/convertLatintoRomanUtils";
 import { Typography, Box } from "@mui/material";
-import {parseAndConvertToPercentage} from '../../utils/parseAndConvertToPercentage'
+import { parseAndConvertToPercentage } from "../../utils/parseAndConvertToPercentage";
 
 interface MovieDetailsProps {
   selectedItem: any | null;
@@ -22,11 +22,10 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
   const apiUrl = `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(
     getFullTitle
   )}`;
-  // const apiUrl = `https://www.omdbapi.com/?apikey=${apiKey}&t=Episode III - Revenge of the Sith
-  // )}`;
+
   const {
     data: omdbData,
-    loading: omdbLoading,
+    isLoading: omdbLoading,
     error: omdbError,
   } = useFetchApi<OmdbApiParams>(apiUrl);
 
@@ -86,17 +85,23 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
             </Box>
           </Box>
 
-          <Box sx={{display:'flex', gap:'20px'}}>
+          <Box sx={{ display: "flex", gap: "20px" }}>
             {omdbData?.Ratings ? (
               omdbData?.Ratings.map((rating: OmdbApiRating, index: number) => (
                 <div key={index}>
-                  <Typography sx={{border:'1px solid #4B9CD3', borderRadius:'20px', padding:'7px', color:'#4B9CD3'}}>
+                  <Typography
+                    sx={{
+                      border: "1px solid #4B9CD3",
+                      borderRadius: "20px",
+                      padding: "7px",
+                      color: "#4B9CD3",
+                    }}
+                  >
                     {rating.Source
                       ? rating.Source
                       : `There is no rate yet ${rating.Source}`}{" "}
-                    {/* : {rating.Value} */}
- : {`${parseAndConvertToPercentage(rating.Value)}%`}
-  
+                    {/* : {rating.Value} */}:{" "}
+                    {`${parseAndConvertToPercentage(rating.Value)}%`}
                   </Typography>
                 </div>
               ))
