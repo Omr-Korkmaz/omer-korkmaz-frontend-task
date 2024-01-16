@@ -67,9 +67,9 @@ const Home: React.FC = () => {
   const modifiedSortedSwapiData = [...modifiedfilteredSwapiData].sort(
     (a, b) => {
       if (sortingCriteria.column === "release_date") {
-        const dateA: any = parseDate(a[sortingCriteria.column]);
-        const dateB: any = parseDate(b[sortingCriteria.column]);
-        return sortingCriteria.order === "asc" ? dateA - dateB : dateB - dateA;
+        const dateA = parseDate(a[sortingCriteria.column]);
+        const dateB = parseDate(b[sortingCriteria.column]);
+        return sortingCriteria.order === "asc" ? dateA.getTime() - dateB.getTime() : dateB.getTime() - dateA.getTime();
       } else if (sortingCriteria.column === "episode_id") {
         return sortingCriteria.order === "asc"
           ? a[sortingCriteria.column] - b[sortingCriteria.column]

@@ -24,6 +24,10 @@ const MovieTable: React.FC<MovieTableProps> = ({
   handleItemClick,
   selectedItem,
 }) => {
+
+
+
+  console.log(data)
   return (
     <TableContainer >
       <Table sx={{ minWidth: 450 }}>

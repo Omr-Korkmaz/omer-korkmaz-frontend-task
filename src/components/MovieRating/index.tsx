@@ -41,7 +41,7 @@ const MovieRating: React.FC<MovieRatingProps> = ({ movie }) => {
 
       {!omdbLoading && !omdbError && (
         <Box>
-          <Rating name="readOnly" readOnly value={numberOfStart} max={10} />
+          <Rating size="small"  name="ratingStar" readOnly value={numberOfStart} max={10} />
         </Box>
       )}
     </section>

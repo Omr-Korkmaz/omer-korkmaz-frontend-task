@@ -43,7 +43,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
               sx={{
                 width: "300px",
                 marginBottom: "16px",
-                height: "300px",
+                height: "260px",
                 overflow: "hidden",
                 borderRadius: "3px",
               }}
