@@ -1,4 +1,4 @@
-// import { swapiApiParams, swapiApiResponse } from "../types/swapiApiParams";
+import { swapiApiParams, swapiApiResponse } from "../types/swapiApiParams";
 
 const filterUtils = (data: any[], filter: string): any[] => {
   return data.filter((item) =>

@@ -3,22 +3,19 @@ import useFetchApi from "../../hooks/useFetchApi";
 import { OmdbApiParams } from "../../types/omdbParams";
 import { swapiApiParams } from "../../types/swapiApiParams";
 import { calculateAverageRating } from "../../utils/ratingUtils";
-import convertLatinToRomanUtils from "../../utils/convertLatintoRomanUtils";
 import Rating from "@mui/material/Rating";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import Loading from "../Loading";
 
 interface MovieRatingProps {
-  selectedItem: swapiApiParams;
+  movie: swapiApiParams | null;
 }
 
-const MovieRating: React.FC<MovieRatingProps> = ({ selectedItem }) => {
-  let getFullTitle = `Episode ${convertLatinToRomanUtils(
-    selectedItem?.episode_id
-  )} - ${selectedItem?.title}`;
-
+const MovieRating: React.FC<MovieRatingProps> = ({ movie }) => {
   const apiKey = "63fd3c86";
+  const fullName = movie?.fullName || ""; //  fix type complain -  need a default value
   const apiUrl = `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(
-    getFullTitle
+    fullName
   )}`;
 
   const {
@@ -32,21 +29,22 @@ const MovieRating: React.FC<MovieRatingProps> = ({ selectedItem }) => {
   const averageRating = omdbData ? calculateAverageRating(omdbData) : null;
   const numberOfStart = averageRating ? averageRating / 10 : null;
 
-  if (omdbLoading) return <div>Loading...</div>;
-
-  if (omdbError)
-    return (
-      <div>
-        <Typography variant="body2" color="error">
-          Error loading movie rating: {omdbError.message}
-        </Typography>
-      </div>
-    );
-
   return (
-    <div>
-      <Rating name="readOnly" readOnly value={numberOfStart} max={10} />
-    </div>
+    <section>
+      {omdbLoading && <Loading loading={omdbLoading} />}
+
+      {omdbError && (
+        <Typography variant="body2" color="error">
+          Error OMDBAPI: {omdbError.message}
+        </Typography>
+      )}
+
+      {!omdbLoading && !omdbError && (
+        <Box>
+          <Rating name="readOnly" readOnly value={numberOfStart} max={10} />
+        </Box>
+      )}
+    </section>
   );
 };
 

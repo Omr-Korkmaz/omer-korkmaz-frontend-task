@@ -21,7 +21,7 @@ export const calculateAverageRating = (omdbData: OmdbApiParams | undefined) => {
     ) || 0;
 
   let sum = 0;
-  let divisor = 0;
+  let divisor = 0; // we need to find exact average. forexample if one rating auth. is not provide rate we should divide 2 not 2 :) 
 
   if (imdbRating) {
     sum += imdbRating * 10; // convert the rate 2 digits, max 100.  (it provides like 7.4 )

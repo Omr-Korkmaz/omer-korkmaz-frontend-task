@@ -3,24 +3,21 @@ import useFetchApi from "../../hooks/useFetchApi";
 import { OmdbApiParams, OmdbApiRating } from "../../types/omdbParams";
 import { swapiApiParams } from "../../types/swapiApiParams";
 import MovieRating from "../MovieRating";
-import convertLatinToRomanUtils from "../../utils/convertLatintoRomanUtils";
 import { Typography, Box } from "@mui/material";
 import { parseAndConvertToPercentage } from "../../utils/parseAndConvertToPercentage";
 
 interface MovieDetailsProps {
-  selectedItem: any | null;
+  selectedItem: swapiApiParams | null;
 }
 
 const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
-  let getFullTitle = `Episode ${convertLatinToRomanUtils(
-    selectedItem?.episode_id
-  )} - ${selectedItem?.title}`;
+  console.log("getfull", selectedItem?.fullName);
 
-  console.log("getfull", getFullTitle);
+  const fullName = selectedItem?.fullName || ""; //  fix type complain -  need a default value
 
   const apiKey = "63fd3c86";
   const apiUrl = `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(
-    getFullTitle
+    fullName
   )}`;
 
   const {
@@ -39,7 +36,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
       ) : (
         <Box sx={{ padding: "20px" }}>
           <Typography sx={{ fontSize: "2rem", width: "100%" }}>
-            {selectedItem.title}
+            {selectedItem.fullName}
           </Typography>
           <Box display="flex" sx={{ width: "100%" }}>
             <Box
@@ -53,7 +50,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
             >
               <img
                 src={omdbData?.Poster}
-                alt={selectedItem.title}
+                alt={selectedItem.fullName}
                 loading="lazy"
                 style={{ width: "100%", height: "100%", objectFit: "contain" }}
               />
@@ -81,7 +78,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
             </Box>
 
             <Box flexGrow={1}>
-              <MovieRating selectedItem={selectedItem} />
+              <MovieRating movie={selectedItem} />
             </Box>
           </Box>
 
@@ -100,7 +97,6 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
                     {rating.Source
                       ? rating.Source
                       : `There is no rate yet ${rating.Source}`}{" "}
-                    {/* : {rating.Value} */}:{" "}
                     {`${parseAndConvertToPercentage(rating.Value)}%`}
                   </Typography>
                 </div>

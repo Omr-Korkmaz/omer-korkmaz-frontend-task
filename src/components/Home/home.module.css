@@ -1,6 +1,7 @@
 .container {
 
     margin: 20px;
+    background-color:'gray';
     /* display: flex;
     flex-direction: column;
     align-items: center;
