@@ -2,7 +2,7 @@
 
 const filterUtils = (data: any[], filter: string): any[] => {
   return data.filter((item) =>
-    item.title.toLowerCase().includes(filter.toLowerCase())
+    item.fullName.toLowerCase().includes(filter.toLowerCase())
   );
 };
 

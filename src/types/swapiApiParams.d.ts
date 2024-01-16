@@ -17,6 +17,12 @@ interface swapiApiParams {
   species?: string[];
   starships?: string[];
 
+
+
+  rate?: number; // for average rating
+  fullName?:string // for modify title to get full name like on the screenshot. and use in filter and omdb api
+
+
   // [key: string]: string | undefined;
 
 }
