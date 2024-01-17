@@ -24,8 +24,6 @@ const MovieRating: React.FC<MovieRatingProps> = ({ movie }) => {
     error: omdbError,
   } = useFetchApi<OmdbApiParams>(apiUrl);
 
-  console.log("omdbData", omdbData);
-
   const averageRating = omdbData ? calculateAverageRating(omdbData) : null;
   const numberOfStart = averageRating ? averageRating / 10 : null;
 

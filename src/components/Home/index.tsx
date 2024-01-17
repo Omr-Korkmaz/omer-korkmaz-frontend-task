@@ -28,7 +28,6 @@ const Home: React.FC = () => {
       item?.title
     }`,
   }));
-  console.log("rrate", modifiedSwapiData);
 
   const [selectedItem, setSelectedItem] = useState<swapiApiParams | null>(null);
   const [filter, setFilter] = useState<string>("");
@@ -64,25 +63,24 @@ const Home: React.FC = () => {
     ? filterUtils(modifiedSwapiData, filter)
     : [];
 
+        
+    //  i Will move this part to custom hook dont forget :)
   const modifiedSortedSwapiData = [...modifiedfilteredSwapiData].sort(
     (a, b) => {
       if (sortingCriteria.column === "release_date") {
         const dateA = parseDate(a[sortingCriteria.column]);
         const dateB = parseDate(b[sortingCriteria.column]);
-        return sortingCriteria.order === "asc" ? dateA.getTime() - dateB.getTime() : dateB.getTime() - dateA.getTime();
+        return sortingCriteria.order === "asc"
+          ? dateA.getTime() - dateB.getTime()
+          : dateB.getTime() - dateA.getTime();
       } else if (sortingCriteria.column === "episode_id") {
         return sortingCriteria.order === "asc"
-          ? a[sortingCriteria.column] - b[sortingCriteria.column]
-          : b[sortingCriteria.column] - a[sortingCriteria.column];
-      } else if (sortingCriteria.column === "rate") {
-        console.log("sdsds", a.rate.averageRating);
-        return sortingCriteria.order === "asc"
-          ? a.rate.averageRating - b.rate.averageRating
-          : b.rate.averageRating - a.rate.averageRating;
+        ? (a[sortingCriteria.column] as number) - (b[sortingCriteria.column] as number)
+        : (b[sortingCriteria.column] as number) - (a[sortingCriteria.column] as number);
       }
 
       const comparison = sortingCriteria.order === "asc" ? 1 : -1;
-      return a[sortingCriteria.column] > b[sortingCriteria.column]
+      return (a[sortingCriteria.column] as string) > (b[sortingCriteria.column] as string)
         ? comparison
         : -comparison;
     }

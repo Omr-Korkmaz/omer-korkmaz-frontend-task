@@ -5,6 +5,7 @@ import { swapiApiParams } from "../../types/swapiApiParams";
 import MovieRating from "../MovieRating";
 import { Typography, Box } from "@mui/material";
 import { parseAndConvertToPercentage } from "../../utils/parseAndConvertToPercentage";
+import Loading from "../Loading";
 
 interface MovieDetailsProps {
   selectedItem: swapiApiParams | null;
@@ -15,7 +16,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
 
   const fullName = selectedItem?.fullName || ""; //  fix type complain -  need a default value
 
-  const apiKey = "63fd3c86";
+  const apiKey = "63fd3c86"; // I added to .env 
   const apiUrl = `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(
     fullName
   )}`;
@@ -30,51 +31,81 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
     <section>
       {!selectedItem ? (
         <Box sx={{ padding: "20px" }}>
-          {" "}
-          <Typography variant="body1">No movie selected</Typography>{" "}
+          <Typography>No movie selected from the list</Typography>{" "}
         </Box>
       ) : (
         <Box sx={{ padding: "20px" }}>
-          <Typography sx={{ fontSize: "2rem", width: "100%" }}>
+          <Typography sx={{ fontSize: "1.6rem", width: "100%" }}>
             {selectedItem.fullName}
           </Typography>
-          <Box display="flex" sx={{ width: "100%" }}>
-            <Box
-              sx={{
-                width: "300px",
-                marginBottom: "16px",
-                height: "260px",
-                overflow: "hidden",
-                borderRadius: "3px",
-              }}
-            >
-              <img
-                src={omdbData?.Poster}
-                alt={selectedItem.fullName}
-                loading="lazy"
-                style={{ width: "100%", height: "100%", objectFit: "contain" }}
-              />
-            </Box>
+          <Box
+            sx={{
+              display: "flex",
+              marginBottom: "16px",
+              flexDirection: "row",
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "flex-start",
+            }}
+          >
+            {omdbLoading && <Loading loading={omdbLoading} />}
 
-            <Box flexGrow={1} sx={{ width: "100%", padding: "10px" }}>
-              <Typography variant="body1" color="text.secondary">
+            {omdbError && (
+              <Box>
+                {" "}
+                <Typography variant="body2" color="error">
+                  Error SwapiApi: {omdbError.message}
+                </Typography>
+              </Box>
+            )}
+            {!omdbLoading && !omdbError && (
+              <Box
+                sx={{
+                  width: "220px",
+
+                  height: "200px",
+                  overflow: "hidden",
+                  borderRadius: "3px",
+                  marginTop: "16px",
+                }}
+              >
+                <img
+                  src={omdbData?.Poster}
+                  alt={omdbData?.Title}
+                  loading="lazy"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                  }}
+                />
+              </Box>
+            )}
+
+            <Box sx={{ width: "100%", padding: "10px" }}>
+              <Typography color="text.secondary" sx={{ fontSize: "0.9rem" }}>
                 {selectedItem.opening_crawl}
               </Typography>
             </Box>
           </Box>
 
-          <Typography sx={{}}>Directed by: {selectedItem.director}</Typography>
+          <Typography sx={{ fontSize: "0.9rem" }}>
+            Directed by: {selectedItem.director}
+          </Typography>
 
           <Box
-            display="flex"
             sx={{
+              display: "flex",
               justifyContent: "center",
               alignItems: "center",
               margin: "10px 0",
+              gap: "5px",
             }}
           >
             <Box>
-              <Typography>Average Rating</Typography>
+              <Typography sx={{ fontSize: "0.9rem", marginBottom: "4px" }}>
+                Average Rating
+              </Typography>
             </Box>
 
             <Box flexGrow={1}>
@@ -92,6 +123,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
                       borderRadius: "20px",
                       padding: "7px",
                       color: "#4B9CD3",
+                      fontSize: "0.9rem",
                     }}
                   >
                     {rating.Source

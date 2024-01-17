@@ -14,13 +14,12 @@ export const parseAndConvertToPercentage = (rating: string): number | null => {
   // Extract the numeric part
   const numericPart = parseFloat(rating);
 
-  // is a valid number
   if (!isNaN(numericPart)) {
-    // If the rating is out of 100 for Metacritic
+    // for Metacritic
     if (rating.includes("/100")) {
       return numericPart;
     }
-    // If the rating is out of 10 - for IMDB
+    //  for IMDB
     else if (rating.includes("/10")) {
       return numericPart * 10;
     }

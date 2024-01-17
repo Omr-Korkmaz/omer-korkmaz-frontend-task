@@ -24,7 +24,10 @@ export default function Sort({ onSort, sortingCriteria }: SortProps) {
   };
 
   const handleSortClick = (column: string) => {
-    const order = sortingCriteria.column === column && sortingCriteria.order === "asc" ? "desc" : "asc";
+    const order =
+      sortingCriteria.column === column && sortingCriteria.order === "asc"
+        ? "desc"
+        : "asc";
     onSort(column, order);
     handleClose();
   };
@@ -38,7 +41,13 @@ export default function Sort({ onSort, sortingCriteria }: SortProps) {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ width: "max-content", padding:' 0 30px', height: "55px", border:'1px solid gray', color:'gray' }}
+        sx={{
+          width: "max-content",
+          padding: " 0 30px",
+          height: "55px",
+          border: "1px solid gray",
+          color: "gray",
+        }}
       >
         Sort by...
       </Button>
@@ -52,27 +61,44 @@ export default function Sort({ onSort, sortingCriteria }: SortProps) {
         }}
         sx={{ width: "300px" }}
       >
-        <MenuItem onClick={() => handleSortClick("release_date")}         sx={{ width: "130px" }}>
+        <MenuItem
+          onClick={() => handleSortClick("release_date")}
+          sx={{ width: "130px" }}
+        >
           Date{" "}
           {sortingCriteria.column === "release_date" && (
-            <Typography sx={{display:'flex', alignItems:'center', justifyContent:'center', gap:'5px'}}>
-              {sortingCriteria.order === "asc" ? <ArrowDropUpIcon sx={{fontSize:'40px'}} /> : <ArrowDropDownIcon sx={{fontSize:'40px'}} />}
+            <Typography
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "5px",
+              }}
+            >
+              {sortingCriteria.order === "asc" ? (
+                <ArrowDropUpIcon sx={{ fontSize: "40px" }} />
+              ) : (
+                <ArrowDropDownIcon sx={{ fontSize: "40px" }} />
+              )}
             </Typography>
           )}
         </MenuItem>
         <MenuItem onClick={() => handleSortClick("episode_id")}>
           Episode{" "}
           {sortingCriteria.column === "episode_id" && (
-            <Typography sx={{display:'flex', alignItems:'center', justifyContent:'center', gap:'5px'}}>
-            {sortingCriteria.order === "asc" ? <ArrowDropUpIcon sx={{fontSize:'40px'}} /> : <ArrowDropDownIcon sx={{fontSize:'40px'}} />}
-            </Typography>
-          )}
-        </MenuItem>
-        <MenuItem onClick={() => handleSortClick("rate")}>
-          Rate{" "}
-          {sortingCriteria.column === "rate" && (
-            <Typography sx={{}}>
-              {sortingCriteria.order === "asc" ? <ArrowDropUpIcon  /> : <ArrowDropDownIcon />}
+            <Typography
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "5px",
+              }}
+            >
+              {sortingCriteria.order === "asc" ? (
+                <ArrowDropUpIcon sx={{ fontSize: "40px" }} />
+              ) : (
+                <ArrowDropDownIcon sx={{ fontSize: "40px" }} />
+              )}
             </Typography>
           )}
         </MenuItem>
@@ -80,4 +106,3 @@ export default function Sort({ onSort, sortingCriteria }: SortProps) {
     </Box>
   );
 }
-

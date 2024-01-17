@@ -6,7 +6,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
 } from "@mui/material";
 import MovieRating from "../MovieRating";
 import { swapiApiParams } from "../../types/swapiApiParams";
@@ -24,19 +23,23 @@ const MovieTable: React.FC<MovieTableProps> = ({
   handleItemClick,
   selectedItem,
 }) => {
-
-
-
-  console.log(data)
   return (
-    <TableContainer >
+    <TableContainer>
       <Table sx={{ minWidth: 450 }}>
         <TableHead>
           <TableRow>
-            <TableCell align="center">Episode</TableCell>
-            <TableCell align="center">Name</TableCell>
-            <TableCell align="center">Rate</TableCell>
-            <TableCell align="center">Release Date</TableCell>
+            <TableCell sx={{ textAlign: "center", fontSize: "0.9rem" }}>
+              Episode
+            </TableCell>
+            <TableCell sx={{ textAlign: "center", fontSize: "0.9rem" }}>
+              Name
+            </TableCell>
+            <TableCell sx={{ textAlign: "center", fontSize: "0.9rem" }}>
+              Rate
+            </TableCell>
+            <TableCell sx={{ textAlign: "center", fontSize: "0.9rem" }}>
+              Release Date
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -53,14 +56,18 @@ const MovieTable: React.FC<MovieTableProps> = ({
                     : "inherit",
               }}
             >
-              <TableCell align="left">EPISODE {row.episode_id}</TableCell>
-              <TableCell align="left">
+              <TableCell sx={{ textAlign: "left", fontSize: "0.8rem" }}>
+                EPISODE {row.episode_id}
+              </TableCell>
+              <TableCell sx={{ textAlign: "left", fontSize: "0.8rem" }}>
                 Episode {convertLatinToRomanUtils(row.episode_id)} - {row.title}
               </TableCell>
-              <TableCell align="left">
+              <TableCell>
                 <MovieRating movie={row} />
               </TableCell>
-              <TableCell align="left">{row.release_date}</TableCell>
+              <TableCell sx={{ textAlign: "left", fontSize: "0.8rem" }}>
+                {row.release_date}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
