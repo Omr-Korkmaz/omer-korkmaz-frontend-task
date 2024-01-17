@@ -25,19 +25,19 @@ const MovieTable: React.FC<MovieTableProps> = ({
 }) => {
   return (
     <TableContainer>
-      <Table sx={{ minWidth: 450 }}>
+      <Table sx={{ minWidth: '450px' }}>
         <TableHead>
           <TableRow>
-            <TableCell sx={{ textAlign: "center", fontSize: "0.9rem" }}>
+            <TableCell sx={{ minWidth:'70px', textAlign: "left", fontSize: "0.9rem" }}>
               Episode
             </TableCell>
-            <TableCell sx={{ textAlign: "center", fontSize: "0.9rem" }}>
+            <TableCell sx={{ textAlign: "left", fontSize: "0.9rem" }}>
               Name
             </TableCell>
-            <TableCell sx={{ textAlign: "center", fontSize: "0.9rem" }}>
+            <TableCell sx={{ textAlign: "left", fontSize: "0.9rem" }}>
               Rate
             </TableCell>
-            <TableCell sx={{ textAlign: "center", fontSize: "0.9rem" }}>
+            <TableCell sx={{ textAlign: "left", fontSize: "0.9rem" }}>
               Release Date
             </TableCell>
           </TableRow>

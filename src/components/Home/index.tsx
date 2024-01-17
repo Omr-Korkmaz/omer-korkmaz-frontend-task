@@ -4,7 +4,6 @@ import Filter from "../Filter";
 import useFetchApi from "../../hooks/useFetchApi";
 import { swapiApiResponse, swapiApiParams } from "../../types/swapiApiParams";
 import { Box, Grid, Typography } from "@mui/material";
-import styles from "./home.module.css";
 import Loading from "../Loading";
 import MovieTable from "../MovieTable";
 import filterUtils from "../../utils/filterUtils";
@@ -87,7 +86,7 @@ const Home: React.FC = () => {
   );
 
   return (
-    <section className={styles.container}>
+    <section>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Box
@@ -121,7 +120,7 @@ const Home: React.FC = () => {
         )}
 
         {!swapiLoading && !swapiError && (
-          <Grid item xs={6}>
+          <Grid item xs={6} >
             <MovieTable
               data={modifiedSortedSwapiData}
               handleItemClick={handleItemClick}
@@ -133,11 +132,9 @@ const Home: React.FC = () => {
         <Grid
           item
           xs={6}
-          sx={{ height: "100vh", borderLeft: "1px solid gray" }}
+          sx={{ height: "100vh", borderLeft: "1px solid gray", paddingRight:"20px" }}
         >
-          <div>
             <MovieDetails selectedItem={selectedItem} />
-          </div>
         </Grid>
       </Grid>
     </section>

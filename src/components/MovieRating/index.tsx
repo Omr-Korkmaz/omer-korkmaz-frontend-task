@@ -12,7 +12,7 @@ interface MovieRatingProps {
 }
 
 const MovieRating: React.FC<MovieRatingProps> = ({ movie }) => {
-  const apiKey = "63fd3c86";
+  const apiKey = "b9a5e69d";
   const fullName = movie?.fullName || ""; //  fix type complain -  need a default value
   const apiUrl = `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(
     fullName

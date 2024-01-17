@@ -16,7 +16,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
 
   const fullName = selectedItem?.fullName || ""; //  fix type complain -  need a default value
 
-  const apiKey = "63fd3c86"; // I added to .env 
+  const apiKey = "b9a5e69d"; // I added to .env 
   const apiUrl = `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(
     fullName
   )}`;
