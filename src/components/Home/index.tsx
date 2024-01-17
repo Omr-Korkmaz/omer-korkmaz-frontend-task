@@ -10,8 +10,7 @@ import filterUtils from "../../utils/filterUtils";
 import convertLatinToRomanUtils from "../../utils/convertLatintoRomanUtils";
 import Sort from "../Sort";
 import axios from "axios";
-import { calculateAverageRating } from "../../utils/ratingUtils";
-import sortDataUtils from "../../utils/sortDataUtils";
+import {sortDataUtils} from "../../utils/sortDataUtils";
 
 const Home: React.FC = () => {
   const {
@@ -92,9 +91,6 @@ const Home: React.FC = () => {
     setSelectedItem(null);
   };
 
-  const parseDate = (dateString: string) => {
-    return new Date(dateString);
-  };
 
   const modifiedfilteredSwapiData = modifiedSwapiData
     ? filterUtils(modifiedSwapiData, filter)

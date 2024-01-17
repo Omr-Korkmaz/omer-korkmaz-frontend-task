@@ -14,7 +14,7 @@ interface MovieDetailsProps {
 const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
   console.log("getfull", selectedItem?.fullName);
 
-  const fullName = selectedItem?.fullName || ""; //  fix type complain -  need a default value
+  const fullName = selectedItem?.fullName || ""; //  fix type -  need a default value
 
   const apiKey = "b9a5e69d";
   const apiUrl = `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(

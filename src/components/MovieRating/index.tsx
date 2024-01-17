@@ -3,7 +3,6 @@ import { swapiApiParams } from "../../types/swapiApiParams";
 import { calculateAverageRating } from "../../utils/ratingUtils";
 import Rating from "@mui/material/Rating";
 import { Box, Typography } from "@mui/material";
-import Loading from "../Loading";
 
 interface MovieRatingProps {
   movie: swapiApiParams | null;

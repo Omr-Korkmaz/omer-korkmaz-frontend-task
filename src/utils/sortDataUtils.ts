@@ -6,7 +6,7 @@ export interface SortingCriteria {
   order: string;
 }
 
-const sortDataUtils = (
+export const sortDataUtils = (
   data: swapiApiParams[],
   sortingCriteria: SortingCriteria
 ): swapiApiParams[] => {
@@ -36,5 +36,3 @@ const sortDataUtils = (
       : -comparison;
   });
 };
-
-export default sortDataUtils
