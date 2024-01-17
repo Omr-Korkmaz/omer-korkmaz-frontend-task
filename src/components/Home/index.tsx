@@ -11,6 +11,7 @@ import convertLatinToRomanUtils from "../../utils/convertLatintoRomanUtils";
 import Sort from "../Sort";
 import axios from "axios";
 import { calculateAverageRating } from "../../utils/ratingUtils";
+import sortDataUtils from "../../utils/sortDataUtils";
 
 const Home: React.FC = () => {
   const {
@@ -99,39 +100,8 @@ const Home: React.FC = () => {
     ? filterUtils(modifiedSwapiData, filter)
     : [];
 
-  //  i Will move this part to custom hook dont forget :)
-  const modifiedSortedSwapiData = [...modifiedfilteredSwapiData].sort(
-    (a, b) => {
-      const averageRatingA = calculateAverageRating(a);
-      const averageRatingB = calculateAverageRating(b);
 
-      console.log("values", averageRatingA, averageRatingB);
-
-      if (sortingCriteria.column === "release_date") {
-        const dateA = parseDate(a[sortingCriteria.column]);
-        const dateB = parseDate(b[sortingCriteria.column]);
-        return sortingCriteria.order === "asc"
-          ? dateA.getTime() - dateB.getTime()
-          : dateB.getTime() - dateA.getTime();
-      } else if (sortingCriteria.column === "episode_id") {
-        return sortingCriteria.order === "asc"
-          ? (a[sortingCriteria.column] as number) -
-              (b[sortingCriteria.column] as number)
-          : (b[sortingCriteria.column] as number) -
-              (a[sortingCriteria.column] as number);
-      } else if (sortingCriteria.column === "rate") {
-        return sortingCriteria.order === "asc"
-          ? averageRatingA - averageRatingB
-          : averageRatingB - averageRatingA;
-      }
-
-      const comparison = sortingCriteria.order === "asc" ? 1 : -1;
-      return (a[sortingCriteria.column] as string) >
-        (b[sortingCriteria.column] as string)
-        ? comparison
-        : -comparison;
-    }
-  );
+  const modifiedSortedSwapiData = sortDataUtils(modifiedfilteredSwapiData, sortingCriteria);
 
   return (
     <section>

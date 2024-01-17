@@ -1,9 +1,8 @@
-export const parseAndConvertToPercentage = (rating: string): number | null => {
+export const parseAndConvertToPercentageUtils = (rating: string): number | null => {
   // already in percentage format
   if (rating.includes("%")) {
     const numericPart = parseFloat(rating);
 
-    // is a valid number
     if (!isNaN(numericPart)) {
       return numericPart;
     } else {

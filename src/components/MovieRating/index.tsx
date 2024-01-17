@@ -1,6 +1,4 @@
 import React from "react";
-import useFetchApi from "../../hooks/useFetchApi";
-import { OmdbApiParams } from "../../types/omdbParams";
 import { swapiApiParams } from "../../types/swapiApiParams";
 import { calculateAverageRating } from "../../utils/ratingUtils";
 import Rating from "@mui/material/Rating";

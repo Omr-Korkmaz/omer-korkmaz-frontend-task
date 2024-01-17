@@ -1,4 +1,3 @@
-import { OmdbApiParams, OmdbApiRating } from "../types/omdbParams";
 
 import { swapiApiParams, SwapiApiRating } from "../types/swapiApiParams";
 

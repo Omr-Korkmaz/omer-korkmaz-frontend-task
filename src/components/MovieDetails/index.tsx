@@ -4,7 +4,7 @@ import { OmdbApiParams, OmdbApiRating } from "../../types/omdbParams";
 import { swapiApiParams } from "../../types/swapiApiParams";
 import MovieRating from "../MovieRating";
 import { Typography, Box } from "@mui/material";
-import { parseAndConvertToPercentage } from "../../utils/parseAndConvertToPercentage";
+import { parseAndConvertToPercentageUtils } from "../../utils/parseAndConvertToPercentageUtils";
 import Loading from "../Loading";
 
 interface MovieDetailsProps {
@@ -129,7 +129,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ selectedItem }) => {
                     {rating.Source
                       ? rating.Source
                       : `There is no rate yet ${rating.Source}`}{" "}
-                    {`${parseAndConvertToPercentage(rating.Value)}%`}
+                    {`${parseAndConvertToPercentageUtils(rating.Value)}%`}
                   </Typography>
                 </div>
               ))
