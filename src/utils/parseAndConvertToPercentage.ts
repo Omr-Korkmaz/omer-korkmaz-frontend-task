@@ -11,7 +11,6 @@ export const parseAndConvertToPercentage = (rating: string): number | null => {
     }
   }
 
-  // Extract the numeric part
   const numericPart = parseFloat(rating);
 
   if (!isNaN(numericPart)) {

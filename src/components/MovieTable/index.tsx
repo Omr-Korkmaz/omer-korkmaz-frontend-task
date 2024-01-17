@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import MovieRating from "../MovieRating";
 import { swapiApiParams } from "../../types/swapiApiParams";
-import convertLatinToRomanUtils from "../../utils/convertLatintoRomanUtils";
 
 interface MovieTableProps {
   data: swapiApiParams[];
@@ -25,10 +24,12 @@ const MovieTable: React.FC<MovieTableProps> = ({
 }) => {
   return (
     <TableContainer>
-      <Table sx={{ minWidth: '450px' }}>
+      <Table sx={{ minWidth: "450px" }}>
         <TableHead>
           <TableRow>
-            <TableCell sx={{ minWidth:'70px', textAlign: "left", fontSize: "0.9rem" }}>
+            <TableCell
+              sx={{ minWidth: "70px", textAlign: "left", fontSize: "0.9rem" }}
+            >
               Episode
             </TableCell>
             <TableCell sx={{ textAlign: "left", fontSize: "0.9rem" }}>
@@ -60,7 +61,7 @@ const MovieTable: React.FC<MovieTableProps> = ({
                 EPISODE {row.episode_id}
               </TableCell>
               <TableCell sx={{ textAlign: "left", fontSize: "0.8rem" }}>
-                Episode {convertLatinToRomanUtils(row.episode_id)} - {row.title}
+                Episode {row.fullName}
               </TableCell>
               <TableCell>
                 <MovieRating movie={row} />

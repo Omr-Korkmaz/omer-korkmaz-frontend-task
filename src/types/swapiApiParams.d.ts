@@ -2,6 +2,12 @@ interface swapiApiResponse<T> {
   results: T[];
 }
 
+
+interface SwapiApiRating {
+  Source: string;
+  Value: string;
+}
+
 interface swapiApiParams {
   title: string;
   episode_id: number;
@@ -17,7 +23,7 @@ interface swapiApiParams {
   species?: string[];
   starships?: string[];
 
-  rate?: number; // for average rating
+  ratings: rating[]; // for average rating 
   fullName?:string // for modify title to get full name like on the screenshot. and use in filter and omdb api
 
   [key: string]: any; // for arbitrary string properties, needed in sorting function.
@@ -25,4 +31,4 @@ interface swapiApiParams {
 
 }
 
-export type { swapiApiParams, swapiApiResponse };
+export type { swapiApiParams, swapiApiResponse, SwapiApiRating };

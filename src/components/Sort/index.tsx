@@ -102,6 +102,26 @@ export default function Sort({ onSort, sortingCriteria }: SortProps) {
             </Typography>
           )}
         </MenuItem>
+
+        <MenuItem onClick={() => handleSortClick("rate")}>
+          Rating{" "}
+          {sortingCriteria.column === "rate" && (
+            <Typography
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "5px",
+              }}
+            >
+              {sortingCriteria.order === "asc" ? (
+                <ArrowDropUpIcon sx={{ fontSize: "40px" }} />
+              ) : (
+                <ArrowDropDownIcon sx={{ fontSize: "40px" }} />
+              )}
+            </Typography>
+          )}
+        </MenuItem>
       </Menu>
     </Box>
   );

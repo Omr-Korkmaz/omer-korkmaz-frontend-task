@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MovieDetails from "../MovieDetails";
 import Filter from "../Filter";
 import useFetchApi from "../../hooks/useFetchApi";
@@ -9,6 +9,8 @@ import MovieTable from "../MovieTable";
 import filterUtils from "../../utils/filterUtils";
 import convertLatinToRomanUtils from "../../utils/convertLatintoRomanUtils";
 import Sort from "../Sort";
+import axios from "axios";
+import { calculateAverageRating } from "../../utils/ratingUtils";
 
 const Home: React.FC = () => {
   const {
@@ -21,12 +23,47 @@ const Home: React.FC = () => {
 
   const swapiResult = swapiData?.results;
 
-  const modifiedSwapiData = swapiResult?.map((item) => ({
+  const updatedSwapiData = swapiResult?.map((item) => ({
     ...item,
     fullName: `Episode ${convertLatinToRomanUtils(item?.episode_id)} - ${
       item?.title
     }`,
   }));
+
+  const [modifiedSwapiData, setModifiedSwapiData] = useState<any>([]);
+
+  useEffect(() => {
+    const fetchDataFromSecondApi = async () => {
+      const apiKey = "b9a5e69d";
+
+      try {
+        const modifiedDataPromises = await (updatedSwapiData || []).map(
+          async (item) => {
+            const response = await axios.get(
+              `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(
+                item?.fullName
+              )}`
+            );
+            const rating = response.data?.Ratings;
+
+            console.log("rate", rating);
+
+            return { ...item, rating };
+          }
+        );
+
+        const modifiedData = await Promise.all(modifiedDataPromises);
+
+        setModifiedSwapiData(modifiedData);
+      } catch (error) {
+        console.error(`Error fetching data from OMDB API: ${error}`);
+      }
+    };
+
+    fetchDataFromSecondApi();
+  }, [swapiData]);
+
+  console.log("modifiedSwapiData", modifiedSwapiData);
 
   const [selectedItem, setSelectedItem] = useState<swapiApiParams | null>(null);
   const [filter, setFilter] = useState<string>("");
@@ -44,7 +81,7 @@ const Home: React.FC = () => {
 
   const handleItemClick = (itemId: number) => {
     const selectedItem = modifiedSwapiData?.find(
-      (item) => item.episode_id === itemId
+      (item: { episode_id: number }) => item.episode_id === itemId
     );
     setSelectedItem(selectedItem ? selectedItem : null);
   };
@@ -62,10 +99,14 @@ const Home: React.FC = () => {
     ? filterUtils(modifiedSwapiData, filter)
     : [];
 
-        
-    //  i Will move this part to custom hook dont forget :)
+  //  i Will move this part to custom hook dont forget :)
   const modifiedSortedSwapiData = [...modifiedfilteredSwapiData].sort(
     (a, b) => {
+      const averageRatingA = calculateAverageRating(a);
+      const averageRatingB = calculateAverageRating(b);
+
+      console.log("values", averageRatingA, averageRatingB);
+
       if (sortingCriteria.column === "release_date") {
         const dateA = parseDate(a[sortingCriteria.column]);
         const dateB = parseDate(b[sortingCriteria.column]);
@@ -74,12 +115,19 @@ const Home: React.FC = () => {
           : dateB.getTime() - dateA.getTime();
       } else if (sortingCriteria.column === "episode_id") {
         return sortingCriteria.order === "asc"
-        ? (a[sortingCriteria.column] as number) - (b[sortingCriteria.column] as number)
-        : (b[sortingCriteria.column] as number) - (a[sortingCriteria.column] as number);
+          ? (a[sortingCriteria.column] as number) -
+              (b[sortingCriteria.column] as number)
+          : (b[sortingCriteria.column] as number) -
+              (a[sortingCriteria.column] as number);
+      } else if (sortingCriteria.column === "rate") {
+        return sortingCriteria.order === "asc"
+          ? averageRatingA - averageRatingB
+          : averageRatingB - averageRatingA;
       }
 
       const comparison = sortingCriteria.order === "asc" ? 1 : -1;
-      return (a[sortingCriteria.column] as string) > (b[sortingCriteria.column] as string)
+      return (a[sortingCriteria.column] as string) >
+        (b[sortingCriteria.column] as string)
         ? comparison
         : -comparison;
     }
@@ -120,7 +168,7 @@ const Home: React.FC = () => {
         )}
 
         {!swapiLoading && !swapiError && (
-          <Grid item xs={6} >
+          <Grid item xs={6}>
             <MovieTable
               data={modifiedSortedSwapiData}
               handleItemClick={handleItemClick}
@@ -132,9 +180,13 @@ const Home: React.FC = () => {
         <Grid
           item
           xs={6}
-          sx={{ height: "100vh", borderLeft: "1px solid gray", paddingRight:"20px" }}
+          sx={{
+            height: "100vh",
+            borderLeft: "1px solid gray",
+            paddingRight: "20px",
+          }}
         >
-            <MovieDetails selectedItem={selectedItem} />
+          <MovieDetails selectedItem={selectedItem} />
         </Grid>
       </Grid>
     </section>

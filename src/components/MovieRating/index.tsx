@@ -12,34 +12,24 @@ interface MovieRatingProps {
 }
 
 const MovieRating: React.FC<MovieRatingProps> = ({ movie }) => {
-  const apiKey = "b9a5e69d";
-  const fullName = movie?.fullName || ""; //  fix type complain -  need a default value
-  const apiUrl = `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(
-    fullName
-  )}`;
-
-  const {
-    data: omdbData,
-    isLoading: omdbLoading,
-    error: omdbError,
-  } = useFetchApi<OmdbApiParams>(apiUrl);
-
-  const averageRating = omdbData ? calculateAverageRating(omdbData) : null;
+  const averageRating = movie ? calculateAverageRating(movie) : null;
   const numberOfStart = averageRating ? averageRating / 10 : null;
-
+  console.log(movie);
   return (
     <section>
-      {omdbLoading && <Loading loading={omdbLoading} />}
-
-      {omdbError && (
-        <Typography variant="body2" color="error">
-          Error OMDBAPI: {omdbError.message}
-        </Typography>
-      )}
-
-      {!omdbLoading && !omdbError && (
+      {!movie ? (
         <Box>
-          <Rating size="small"  name="ratingStar" readOnly value={numberOfStart} max={10} />
+         <Typography variant="body2" color="error">There is Movie to show Rating</Typography>
+        </Box>
+      ) : (
+        <Box>
+          <Rating
+            size="small"
+            name="ratingStar"
+            readOnly
+            value={numberOfStart}
+            max={10}
+          />
         </Box>
       )}
     </section>
